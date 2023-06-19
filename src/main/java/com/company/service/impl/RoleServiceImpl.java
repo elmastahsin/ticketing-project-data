@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class RoleServiceImpl implements RoleService {
+
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
 
@@ -21,10 +23,8 @@ public class RoleServiceImpl implements RoleService {
         this.roleMapper = roleMapper;
     }
 
-
     @Override
     public List<RoleDTO> findAll() {
-        // go to DB and get all roles
 
         List<Role> roleList = roleRepository.findAll();
 
@@ -33,6 +33,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDTO findById(Long id) {
-        return null;
+
+
+
+
+        return roleMapper.convertToDTO(roleRepository.findById(id).get());
     }
 }
