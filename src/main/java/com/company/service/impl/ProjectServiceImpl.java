@@ -3,6 +3,7 @@ package com.company.service.impl;
 
 import com.company.dto.ProjectDTO;
 import com.company.entity.Project;
+import com.company.enums.Status;
 import com.company.mapper.ProjectMapper;
 import com.company.repository.ProjectRepository;
 import com.company.service.ProjectService;
@@ -38,7 +39,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void save(ProjectDTO dto) {
-        projectRepository.save(projectMapper.convertToEntity(dto));
+       dto.setProjectStatus(Status.OPEN);
+        Project project = projectMapper.convertToEntity(dto);
+        projectRepository.save(project);
     }
 
     @Override
