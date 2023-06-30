@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO update(UserDTO user) {
-
         //Find current user
         User user1 = userRepository.findByUserName(user.getUserName());  //has id
         //Map update user dto to entity object
@@ -58,10 +57,18 @@ public class UserServiceImpl implements UserService {
         convertedUser.setId(user1.getId());
         //save the updated user in the db
         userRepository.save(convertedUser);
-
         return findByUserName(user.getUserName());
-
     }
+
     //delete
+    @Override
+    public void delete(String username) {
+        // go to db and get that user by username
+        User user = userRepository.findByUserName(username);
+        // change the isDeleted field to true
+        user.setIsDeleted(true);
+        // save the user in the db
+        userRepository.save(user);
+    }
 
 }
