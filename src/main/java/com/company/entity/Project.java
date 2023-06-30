@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter
@@ -18,8 +20,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "projects")
+@Where(clause = "is_deleted=false")
 public class Project extends BaseEntity {
+
+    @Column(unique = true)
     private String projectCode;
+    @NotBlank(message = "Please enter a project name")
     private String projectName;
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
