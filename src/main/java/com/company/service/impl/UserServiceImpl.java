@@ -48,16 +48,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO update(UserDTO user) {
+    public UserDTO update(UserDTO dto) {
         //Find current user
-        User user1 = userRepository.findByUserName(user.getUserName());  //has id
+        User user = userRepository.findByUserName(dto.getUserName());  //has id
         //Map update user dto to entity object
-        User convertedUser = userMapper.convertToEntity(user);   // has id?
+        User convertedUser = userMapper.convertToEntity(dto);   // has id?
         //set id to the converted object
-        convertedUser.setId(user1.getId());
+        convertedUser.setId(user.getId());
         //save the updated user in the db
         userRepository.save(convertedUser);
-        return findByUserName(user.getUserName());
+        return findByUserName(dto.getUserName());
     }
 
     //delete
