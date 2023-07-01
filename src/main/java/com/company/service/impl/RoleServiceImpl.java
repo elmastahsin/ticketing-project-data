@@ -2,6 +2,7 @@ package com.company.service.impl;
 
 import com.company.dto.RoleDTO;
 import com.company.entity.Role;
+import com.company.mapper.MapperUtil;
 import com.company.mapper.RoleMapper;
 import com.company.repository.RoleRepository;
 
@@ -17,10 +18,12 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
+    private final MapperUtil mapperUtil;
 
-    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper) {
+    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper, MapperUtil mapperUtil) {
         this.roleRepository = roleRepository;
         this.roleMapper = roleMapper;
+        this.mapperUtil = mapperUtil;
     }
 
     @Override
@@ -28,7 +31,9 @@ public class RoleServiceImpl implements RoleService {
 
         List<Role> roleList = roleRepository.findAll();
 
-        return roleList.stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
+//        return roleList.stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
+//        return roleList.stream().map(role -> mapperUtil.convert(role, RoleDTO.class)).collect(Collectors.toList());
+        return roleList.stream().map(role -> mapperUtil.convert(role, new RoleDTO())).collect(Collectors.toList());
     }
 
     @Override
