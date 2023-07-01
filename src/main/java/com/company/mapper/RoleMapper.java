@@ -11,6 +11,7 @@ public class RoleMapper {
 
     private final ModelMapper modelMapper;
 
+
     public RoleMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
@@ -21,5 +22,7 @@ public class RoleMapper {
     public RoleDTO convertToDTO(Role role){
         return modelMapper.map(role, RoleDTO.class);
     }
+
+
 
 }
